@@ -50,17 +50,15 @@ namespace Snakey
         {
             GameScreen.Children.Clear();
             //Spawn food, if there is none and the timer is full
-            if (foodCounter>=50 && CurrentFood==null)
-            {
-                var random1 = new Random();
-                var random2 = new Random();
-                CurrentFood = new Food(random1.Next(10, 400), random2.Next(10, 400));
-                gameObjects.Add(CurrentFood);
-                foodCounter = 0;
-            }
-            foodCounter++;
-            ///Continue here Switch...
-            ///
+            //if (foodCounter>=50 && CurrentFood==null)
+            //{
+            //    var random1 = new Random();
+            //    var random2 = new Random();
+            //    CurrentFood = new Food(random1.Next(10, 400), random2.Next(10, 400));
+            //    gameObjects.Add(CurrentFood);
+            //    foodCounter = 0;
+            //}
+            //foodCounter++;
             switch(playerSnake.CheckCollision(CurrentFood.Position))
             {
                 case Snake.CollisionType.WithBody:
@@ -72,7 +70,11 @@ namespace Snakey
                 case Snake.CollisionType.WithFood:
                     {
                         playerSnake.Grow(CurrentFood);
-                        //CurrentFood.Dispose(GameScreen);
+                        gameObjects.Remove(CurrentFood);
+                        var random1 = new Random();
+                        var random2 = new Random();
+                        CurrentFood = new Food(random1.Next(1,40)*10, random2.Next(1, 40)*10);
+                        gameObjects.Add(CurrentFood);
                         break;
                     }
                 case Snake.CollisionType.NoCollision:

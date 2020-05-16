@@ -25,11 +25,25 @@ namespace Snakey
             rectangle.Fill = new SolidColorBrush(Colors.Red);
             Canvas.SetLeft(rectangle, Position.X);
             Canvas.SetTop(rectangle, Position.Y);
+            rectangle.Uid = "Food";
             removeIndex=canvas.Children.Add(rectangle);
         }
         public void Dispose(Canvas canvas)
         {
-            canvas.Children.RemoveAt(removeIndex);
+            Rectangle toRemove=null;
+            foreach(Rectangle element in canvas.Children)
+            {
+                if(element.Uid.Equals("Food"))
+                {
+                    toRemove = element;
+                    break;
+                }
+            }
+            if (toRemove != null)
+            {
+                canvas.Children.Remove(toRemove);
+            }
+            
         }
     }
 }
